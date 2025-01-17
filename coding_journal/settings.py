@@ -50,11 +50,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 # CORS settings
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5173",  # SvelteKit development server
-    # Add your production frontend URL later
-]
+CORS_ALLOW_ALL_ORIGINS = True  # Only for development
+CORS_ALLOW_CREDENTIALS = True
 
+# Add these if not present
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Svelte dev server
+    "http://127.0.0.1:5173",
+]
 # REST Framework settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -66,7 +69,23 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
 
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 ROOT_URLCONF = "coding_journal.urls"
 
 TEMPLATES = [
