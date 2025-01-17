@@ -6,6 +6,9 @@ from .models import JournalEntry
 from .serializers import UserSerializer, JournalEntrySerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @swagger_auto_schema(
@@ -45,4 +48,11 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
         """
         Create a new entry associated with the current user
         """
+        logger.debug(f"Creating entry for user: {self.request.user}")
         serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        logger.debug(
+            f"Auth header: {request.headers.get('Authorization', 'No Auth header')}"
+        )
+        return super().create(request, *args, **kwargs)

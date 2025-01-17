@@ -20,14 +20,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class JournalEntrySerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source="user.username")
+
     class Meta:
         model = JournalEntry
         fields = [
             "id",
+            "user",
             "date",
             "content",
             "concepts_learned",
             "created_at",
             "updated_at",
         ]
-        read_only_fields = ["date", "created_at", "updated_at"]
+        read_only_fields = ["user", "date", "created_at", "updated_at"]
